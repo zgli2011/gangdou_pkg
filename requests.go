@@ -17,12 +17,21 @@ const (
 )
 
 type Request struct {
+	Head           http.Header
 	client         http.Client
 	method         string
 	queueURLString string
 }
 
-func (req *Request) Header() *Request {
+func (req *Request) Header(head map[string]string) *Request {
+	for key, value := range head {
+		req.Head.Add(key, value)
+	}
+	return req
+}
+
+func (req *Request) Timeout(time int) *Request {
+
 	return req
 }
 
